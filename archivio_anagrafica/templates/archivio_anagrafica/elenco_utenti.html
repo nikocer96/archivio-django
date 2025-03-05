@@ -1,0 +1,24 @@
+{% include "archivio_anagrafica/base/base.html" %}
+
+{% block title %} Elenco utenti {% endblock %}
+
+{% block content %}
+    <div>
+        <div class="grid grid-cols-5 bg-gray-400 font-bold p-4">
+        <div>Nome</div>
+        <div>Cognome</div>
+        <div>CF</div>
+        <div>Provincia Nascita</div>
+        <div>Comune Nascita</div>
+    </div>
+    {% for utente in utenti %}
+        <div class="grid grid-cols-5 bg-blue-300 border-2 border-black-500 text-left">
+            <div class="p-2">{{ utente.nome }}</div>
+            <div class="p-2">{{ utente.cognome }}</div>
+            <div class="p-2">{{ utente.codice_fiscale }}</div>
+            <div class="p-2">{{ utente.provincia_nascita }}</div>
+            <div class="p-2">{{ utente.comune_nascita }}</div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

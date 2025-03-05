@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %} {% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    </head>
+    <script>{% block script_content %} {% endblock %}</script>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

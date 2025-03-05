@@ -1,0 +1,56 @@
+{% extends "archivio_anagrafica/base/base.html" %}
+    {% block script_content %}
+        document.addEventListener('DOMContentLoaded', function() {
+            function setupComuniLoader(provinciaFieldId, comuneFieldId) {
+                const provinciaField = document.getElementById(provinciaFieldId);
+                const comuneField = document.getElementById(comuneFieldId);
+
+                provinciaField.addEventListener('change', function() {
+                    const provinciaId = provinciaField.value;
+
+                    comuneField.innerHTML = '<option value="">---------</option>';
+
+                    if (provinciaId) {
+                        fetch(`/comuni/${provinciaId}/`)
+                            .then(response => response.json())
+                            .then(comuni => {
+                                comuni.forEach(comune => {
+                                    const option = document.createElement('option');
+                                    option.value = comune.id;
+                                    option.textContent = comune.comune;
+                                    comuneField.appendChild(option);
+                                });
+                            })
+                            .catch(error => console.error('Errore nel caricamento comuni:', error));
+                    }
+                });
+            }
+
+            // Inizializza per nascita
+            setupComuniLoader('id_provincia_nascita', 'id_comune_nascita');
+
+            // Inizializza per residenza
+            setupComuniLoader('id_provincia_residenza', 'id_comune_residenza');
+        });
+    {% endblock %}
+
+{% block content %}
+    <h2>Crea Nuovo Utente</h2>
+    <div class="h-screen flex items-center justify-center">
+        <form method="post">
+            {% csrf_token %}
+            {% comment %} <table>
+                {{ form.as_table }}
+            </table> {% endcomment %}
+            <div class="flex flex-col">
+                {% for field in form %}
+                <label class="">{{ field.label }}</label>
+                <div class="border-2 border-black-500">
+                    {{ field }}
+                </div>
+            {% endfor %}
+            </div>
+            <button type="submit">Salva Utente</button>
+        </form>
+    </div>
+{% endblock %}
