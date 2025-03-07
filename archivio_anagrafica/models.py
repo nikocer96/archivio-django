@@ -29,7 +29,7 @@ class Utente(models.Model):
     comune_nascita = models.ForeignKey(Comune, on_delete=models.SET_NULL, null=True, related_name="utenti_nati")
     provincia_residenza = models.ForeignKey(Provincia, on_delete=models.SET_NULL, null=True, related_name="utenti_residenti")
     comune_residenza = models.ForeignKey(Comune, on_delete=models.SET_NULL, null=True, related_name="utenti_residenti")
-    slug = models.SlugField(null=True, blank=True, unique=True, db_index=True)
+    slug = models.SlugField(null=True, blank=True, db_index=True)
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nome)

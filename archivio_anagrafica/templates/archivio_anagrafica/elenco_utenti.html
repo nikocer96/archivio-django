@@ -3,6 +3,14 @@
 {% block title %} Elenco utenti {% endblock %}
 
 {% block content %}
+
+    <div>
+        <form method="GET" action="{% url "utenti" %}">
+            <input type="text" name="nome" placeholder="Nome" value="{{ request.GET.nome }}">
+            <input type="text" name="cognome" placeholder="Cognome" value="{{ request.GET.cognome }}">
+            <button type="submit">Cerca</button>
+        </form>
+    </div>
     <div>
         <div class="grid grid-cols-6 bg-gray-400 font-bold p-4">
         <div></div>
@@ -15,8 +23,8 @@
     {% for utente in utenti %}
         <div class="grid grid-cols-6 bg-blue-300 border-2 border-black-500 text-left">
             <div class="p-2">
-                <a class="p-3" href="{% url "dettagli_utente" utente.slug %}"><i class="fa-solid fa-magnifying-glass"></i></a>
-                <a class="p-3" href="#" onclick="confermaEliminazione('{{ utente.slug }}')">
+                <a class="p-3" href="{% url "dettagli_utente" utente.pk %}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a class="p-3" href="#" onclick="confermaEliminazione('{{ utente.pk }}')">
                     <i class="fa-solid fa-trash"></i>
                 </a>
             </div>
@@ -46,9 +54,9 @@
 {% endblock %}
 
 {% block script_content %}
-    function confermaEliminazione(slug) {
+    function confermaEliminazione(pk) {
         const form = document.getElementById("form-elimina");
-        form.action = `/utenti/rimuovi/${slug}/`;
+        form.action = `/utenti/rimuovi/${pk}/`;
         document.getElementById("modal-elimina").classList.remove("hidden");
     }
 

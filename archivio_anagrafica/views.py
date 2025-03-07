@@ -16,6 +16,16 @@ class ElencoUtenti(ListView):
     template_name = "archivio_anagrafica/elenco_utenti.html"
     model = Utente
     context_object_name = "utenti"
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        nome = self.request.GET.get("nome")
+        cognome = self.request.GET.get("cognome")
+        if nome:
+            queryset = queryset.filter(nome__icontains=nome)
+        if cognome:
+            queryset = queryset.filter(cognome__icontains=cognome)
+        return queryset
 
 class CreaUtenteView(CreateView):
     model = Utente
