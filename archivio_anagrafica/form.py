@@ -17,6 +17,7 @@ class UtenteForm(forms.ModelForm):
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'border-1 border-black-500 w-full p-2'}),
             'cognome': forms.TextInput(attrs={'class': 'border-1 border-black-500 w-full p-2'}),
+            'data_nascita': forms.TextInput(attrs={'class': 'border-1 border-black-500 w-full p-2'}),
             'codice_fiscale': forms.TextInput(attrs={'class': 'border-1 border-black-500 w-full p-2'}),
             'provincia_nascita': forms.Select(attrs={'class': 'border-1 border-black-500 w-full p-2'}),
             'comune_nascita': forms.Select(attrs={'class': 'border-1 border-black-500 w-full p-2'}),

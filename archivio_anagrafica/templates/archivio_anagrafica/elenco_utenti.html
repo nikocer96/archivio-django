@@ -1,10 +1,11 @@
-{% include "archivio_anagrafica/base/base.html" %}
+{% extends "archivio_anagrafica/base/base.html" %}
 
 {% block title %} Elenco utenti {% endblock %}
 
 {% block content %}
     <div>
-        <div class="grid grid-cols-5 bg-gray-400 font-bold p-4">
+        <div class="grid grid-cols-6 bg-gray-400 font-bold p-4">
+        <div></div>
         <div>Nome</div>
         <div>Cognome</div>
         <div>CF</div>
@@ -12,7 +13,13 @@
         <div>Comune Nascita</div>
     </div>
     {% for utente in utenti %}
-        <div class="grid grid-cols-5 bg-blue-300 border-2 border-black-500 text-left">
+        <div class="grid grid-cols-6 bg-blue-300 border-2 border-black-500 text-left">
+            <div class="p-2">
+                <a class="p-3" href="{% url "dettagli_utente" utente.slug %}"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a class="p-3" href="#" onclick="confermaEliminazione('{{ utente.slug }}')">
+                    <i class="fa-solid fa-trash"></i>
+                </a>
+            </div>
             <div class="p-2">{{ utente.nome }}</div>
             <div class="p-2">{{ utente.cognome }}</div>
             <div class="p-2">{{ utente.codice_fiscale }}</div>
@@ -21,4 +28,31 @@
         </div>
     </div>
     {% endfor %}
+    <div id="modal-elimina" class="hidden fixed inset-0 flex items-center justify-center bg-opacity-50">
+        <div class="w-[260px] h-auto bg-gray-400 p-4 rounded shadow-lg">
+            <div class="flex flex-col items-center">
+                <h2 id="modal-titolo" class="text-lg font-bold mb-4">Conferma eliminazione</h2>
+                <form id="form-elimina" method="post" class="flex flex-col items-center gap-2">
+                    {% csrf_token %}
+                    <div class ="flex">
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded mr-[8px]">Si</button>
+                        <button type="button" onclick="chiudiModale()" class="bg-gray-500 text-white px-4 py-2 rounded">Annulla</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block script_content %}
+    function confermaEliminazione(slug) {
+        const form = document.getElementById("form-elimina");
+        form.action = `/utenti/rimuovi/${slug}/`;
+        document.getElementById("modal-elimina").classList.remove("hidden");
+    }
+
+    function chiudiModale() {
+        document.getElementById("modal-elimina").classList.add("hidden");
+    }
 {% endblock %}

@@ -2,9 +2,10 @@ from django.shortcuts import render
 from .models import Comune
 from django.http import JsonResponse
 from django.views.generic.edit import CreateView
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView, DetailView, DeleteView
 from .models import Utente
 from .form import UtenteForm
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -47,3 +48,14 @@ class ComuniPerProvinciaView(View):
     def get(self, request, provincia_id):
         comuni = Comune.objects.filter(provincia_id=provincia_id).values('id', 'comune')
         return JsonResponse(list(comuni), safe=False)
+    
+class DettagliUtente(DetailView):
+    template_name = "archivio_anagrafica/dettagli_utente.html"
+    model = Utente
+    context_object_name ="utente"
+    
+class EliminaUtente(DeleteView):
+    template_name = "archivio_anagrafica/elenco_utenti.html"
+    model = Utente
+    context_object_name = "utente"
+    success_url = reverse_lazy('utenti')

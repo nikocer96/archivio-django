@@ -23,7 +23,7 @@ class Comune(models.Model):
 class Utente(models.Model):
     nome = models.CharField(max_length=100)
     cognome = models.CharField(max_length=100)
-    data_nascita = models.DateField
+    data_nascita = models.DateField(null=True)
     codice_fiscale = models.CharField(max_length=16, unique=True)
     provincia_nascita = models.ForeignKey(Provincia, on_delete=models.SET_NULL, null=True, related_name="utenti_nati")
     comune_nascita = models.ForeignKey(Comune, on_delete=models.SET_NULL, null=True, related_name="utenti_nati")

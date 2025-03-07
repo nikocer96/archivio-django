@@ -1,0 +1,42 @@
+{% extends "archivio_anagrafica/base/base.html" %}
+
+{% block title %} Dettagli utenti {% endblock %}
+
+{% block content %}
+    <div class="w-screen h-[400px] bg-blue-200">
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Nome:</p>
+            {{ utente.nome }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Cognome: </p>
+            {{ utente.cognome }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Data Nascita: </p>
+            {{ utente.data_nascita|date:"d/m/Y" }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Codice Fiscale: </p>
+            {{ utente.codice_fiscale }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Provincia Nascita: </p>
+            {{ utente.provincia_nascita }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Comune Nascita: </p>
+            {{ utente.comune_nascita }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Provincia Residenza: </p>
+            {{ utente.provincia_residenza }}
+        </div>
+        <div class="flex p-2">
+            <p class="font-semibold mr-2">Comune Residenza: </p>
+            {{ utente.comune_residenza }}
+        </div>
+    </div>
+    
+    
+{% endblock %}
